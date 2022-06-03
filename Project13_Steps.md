@@ -86,3 +86,6 @@ Next `site.yml` imports `ansible-config-mgt/static-assignments/loadbalancers.yml
     - { role: apache, when: enable_apache_lb and load_balancer_is_required }
     - { role: nginx, when: enable_nginx_lb and load_balancer_is_required }
 ```
+
+So based on the values of the variables in `uat.yml`, `loadbalancers.yml` calls either:  
+`ansible-config-mgt/roles/apache/tasks/main.yml` or `ansible-config-mgt/roles/nginx/tasks/main.yml`
