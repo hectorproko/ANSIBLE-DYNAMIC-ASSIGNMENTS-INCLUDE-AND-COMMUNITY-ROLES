@@ -1,11 +1,25 @@
 ## ANSIBLE-DYNAMIC-ASSIGNMENTS-INCLUDE-AND-COMMUNITY-ROLES
 PROJECT 13
 
-#### ANSIBLE DYNAMIC ASSIGNMENTS (INCLUDE) AND COMMUNITY ROLES
-#### INTRODUCING DYNAMIC ASSIGNMENT INTO OUR STRUCTURE
-In repo [ansible-config-mgt](https://github.com/hectorproko/ansible-config-mgt) I create a new branch ``dynamic-assignments``  
+In this project we will introduce [dynamic assignments](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse.html#includes-dynamic-re-use) by using `include` module.  
 
-In this new branch I create a folder ``dynamic-assignments`` and inside it a file ``env-vars.yml``
+In [Project 12](https://github.com/hectorproko/ANSIBLE-REFACTORING-ASSIGNMENTS-IMPORTS/blob/main/Project12_Steps.md), we usedd **static** assignments using `import` Ansible module. The module that enables dynamic assignments is include.  
+
+`import = Static`  
+`include = Dynamic`  
+
+When the `import` module is used, all statements are pre-processed at the time playbooks are **[parsed](https://en.wikipedia.org/wiki/Parsing)**. Meaning, when you execute `site.yml` playbook, Ansible will process all the playbooks referenced during the time it is parsing the statements. This also means that, during actual execution, if any statement changes, such statements will not be considered. Hence, it is static.  
+
+On the other hand, when `include` module is used, all statements are processed only during execution of the playbook. Meaning, after the statements are **[parsed](https://en.wikipedia.org/wiki/Parsing)**, any changes to the statements encountered during execution will be used.  
+
+#### ANSIBLE DYNAMIC ASSIGNMENTS (INCLUDE) AND COMMUNITY ROLES
+
+
+
+#### INTRODUCING DYNAMIC ASSIGNMENT INTO OUR STRUCTURE
+In repo [ansible-config-mgt](https://github.com/hectorproko/ansible-config-mgt) I create a new **branch** ``dynamic-assignments``  
+
+In this new **branch** I create a folder ``dynamic-assignments`` and inside it a file ``env-vars.yml``  
 
 ``` bash 
 ---
@@ -42,17 +56,18 @@ Since we will be using the same Ansible to configure multiple environments, and 
 
 **Updating site.yml with dynamic assignments**  
 
-Update site.yml file to make use of the dynamic assignment. (At this point, we cannot test it yet. We are just setting the stage for what is yet to come. So hang on to your hats)
+Updating `site.yml` file to make use of the **dynamic** assignment.  
+*(At this point, we cannot test it yet. We are just setting the stage for what is yet to come)*  
 
 
 #### LOAD BALANCER ROLES
 
-Installing 2 new roles [Nginx](https://galaxy.ansible.com/nginxinc/nginx) and [Apache](https://galaxy.ansible.com/geerlingguy/apache)  
+Installing 2 new **roles** [Nginx](https://galaxy.ansible.com/nginxinc/nginx) and [Apache](https://galaxy.ansible.com/geerlingguy/apache)  
 
 ``` bash
 ansible-galaxy install nginxinc.nginx && ansible-galaxy install geerlingguy.apache
 ```
-Moving the roles from default location to local repo (renaming it in the process) to be pushed
+Moving the **roles** from default location to local repo (renaming it in the process) to be **pushed**
 
 ``` bash
 hector@hector-Laptop:~/ansible-config-mgt/roles$ mv /home/hector/.ansible/roles/nginxinc.nginx ./nginx
@@ -78,7 +93,7 @@ enable_nginx_lb: true
 enable_apache_lb: false
 load_balancer_is_required: true
 ```
-Next `site.yml` imports `ansible-config-mgt/static-assignments/loadbalancers.yml`
+Next `site.yml` imports `ansible-config-mgt/static-assignments/loadbalancers.yml`  
 
 ``` bash
 - hosts: lb
